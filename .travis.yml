@@ -1,2 +1,18 @@
+sudo:
+  required
+
+services:
+  - docker
+
 language: java
 jdk: oraclejdk8
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+after_success:
+  - export NAME=alexpench/chat
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker build -t $NAME:$COMMIT .
+  - docker push $NAME
