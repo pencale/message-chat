@@ -11,6 +11,5 @@ public interface UserMapperService {
     User add(String name);
     List<User> getAllActiveUsers();
     User findOne(Long ownerId);
-
-    void update(User user);
+    void updateStatus(User user);
 }

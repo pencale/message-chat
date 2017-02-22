@@ -5,6 +5,7 @@ import org.springframework.data.repository.Repository;
 import ru.chat.chatdemo.model.Chat;
 import ru.chat.chatdemo.model.Message;
 
+import java.util.Deque;
 import java.util.List;
 
 /**

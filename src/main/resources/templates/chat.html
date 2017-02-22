@@ -90,7 +90,6 @@ setInterval(() => {
 function downloadMessages(){
 if (!isDownloading){
     isDownloading = true;
-    <!--$("#messages").empty();-->
     $("#messages").load("messages", {ownerId:chatOwner.id, userId:chatPerson});
     }
 isDownloading = false;

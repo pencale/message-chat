@@ -23,6 +23,7 @@ public class Message {
     private long chatId = 0;
     private String text = "";
     private Date date = new Date();
+
     public Message() {}
     public Message(long userId, long chatId, String text, Date date) {
         this.userId = userId;

@@ -56,7 +56,7 @@ public class UserMapperServiceImpl implements UserMapperService {
     }
 
     @Override
-    public void update(User user) {
+    public void updateStatus(User user) {
         users.remove(user);
         user.setActive(false);
         repo.save(user);

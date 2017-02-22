@@ -1,7 +1,6 @@
 package ru.chat.chatdemo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,6 @@ import ru.chat.chatdemo.model.Message;
 import ru.chat.chatdemo.model.User;
 import ru.chat.chatdemo.service.ChatServiceImpl;
 import ru.chat.chatdemo.service.MessageServiceImpl;
-import ru.chat.chatdemo.service.UserMapperService;
 import ru.chat.chatdemo.service.UserMapperServiceImpl;
 
 import javax.servlet.http.HttpServletResponse;
@@ -59,14 +57,7 @@ public class ChatController {
 
     @RequestMapping(value = "setnotactive", method = RequestMethod.POST)
     public void updateStatus(@RequestBody User user, HttpServletResponse response){
-        userMapperService.update(user);
+        userMapperService.updateStatus(user);
         response.setStatus(200);
     }
-//
-//    @RequestMapping(value = "setnotactive", method = RequestMethod.GET)
-//    public void updateStatus(@RequestParam(value = "id") Long id, HttpServletResponse response){
-////        userMapperService.update(user);
-//        Long userId = id;
-//        response.setStatus(200);
-//    }
 }
