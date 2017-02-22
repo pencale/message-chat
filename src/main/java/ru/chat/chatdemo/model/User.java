@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by alexpench on 17.02.17.
  */
 @Entity
-@Table(name="`user`")
+@Table(name = "`user`")
 public class User {
     @Override
     public boolean equals(Object o) {
@@ -35,7 +35,8 @@ public class User {
     private String name = "";
     private boolean active = false;
 
-    public User() {}
+    public User() {
+    }
 
 
     public User(String name) {
