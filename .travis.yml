@@ -15,7 +15,7 @@ env:
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export NAME=alexpench/chat
-  - export TAG='if [ "$BRANCH" == "master" ]; then echo "latest"; else echo $BRANCH ; fi'
+  - export TAG=latest
   - docker build -t $NAME:$COMMIT .
   - docker tag $NAME:$COMMIT $NAME:$TAG
   - docker push $NAME
