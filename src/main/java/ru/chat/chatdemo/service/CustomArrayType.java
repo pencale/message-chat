@@ -31,11 +31,6 @@ public class CustomArrayType implements UserType {
         return SQL_TYPES;
     }
 
-    /**
-     * The class returned by <tt>nullSafeGet()</tt>.
-     *
-     * @return Class
-     */
     public final Class returnedClass() {
         return Long[].class;
     }
