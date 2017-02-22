@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <style type="text/css">
+         #chat {
+            display: none;
+        }
+
+        #messages {
+            margin: 5px;
+            padding: 5px;
+            border: 2px groove #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<script>
+jQuery(function($) {
+var chatPerson = null;
+var lastChatPerson = null;
+var currentChatId;
+var isDownloading = false;
+var chatOwner = {id : $("#ownerTag").attr('data-owner-id'),
+                 name: $("#ownerTag").attr('data-owner-name'),
+                 active: $("#ownerTag").attr('data-owner-active')
+                 };
+
+$(document).ready( () => {
+    getActiveUsers()
+});
+
+function getActiveUsers(){
+getUsers();
+setInterval( function(){
+    getUsers();}, 10000);
+}
+
+function getUsers(){
+$.ajax({
+            type: "POST",
+            url:"activeusers",
+            contentType: "application/json",
+            data: JSON.stringify(chatOwner),
+            success: populateUsers
+    })
+}
+
+function populateUsers(data){
+var ids = []
+$('#users').empty()
+ for (let i in data){
+    ids.push(data[i].id)
+    let userId = data[i].id
+    let name = data[i].name
+    let className = "usersList"
+    let dataToAppend = "<span class="+className+" id="+userId+">"+name+"</span><br />"
+    $('#users').append(dataToAppend)
+ };
+ if(ids.indexOf(parseInt(chatPerson)) === -1) {
+    if(chatPerson !== null) {
+      lastChatPerson = parseInt(chatPerson);
+      chatPerson = null;
+    }
+    if(ids.indexOf(lastChatPerson) !== -1) {
+      chatPerson = lastChatPerson;
+    }
+ }
+}
+
+$('#users').on( "click", "span", (event) => {
+chatPerson =  $( event.target ).attr( 'id' );
+    $('#chat').show()
+    loadChatMessages()
+    });
+
+function loadChatMessages() {
+setInterval(() => {
+    if(chatPerson){
+        downloadMessages()
+    } else {
+        return;
+      };
+    }, 5000);
+}
+
+function downloadMessages(){
+if (!isDownloading){
+    isDownloading = true;
+    <!--$("#messages").empty();-->
+    $("#messages").load("messages", {ownerId:chatOwner.id, userId:chatPerson});
+    }
+isDownloading = false;
+}
+$('#message').keypress(function(e){
+    if(e.which == 13){
+        $('#send').click();
+    }
+});
+
+$('#send').click(function() {
+    currentChatId = $("#msgTable").attr("data-chat-id");
+    let msgText = $('#message').val();
+    let msgData = JSON.stringify({
+            text : msgText,
+            userId : chatPerson,
+            date : new Date(),
+            chatId : currentChatId
+            })
+    if (msgText.length > 0) {
+        $.ajax({
+          type: "POST",
+          url:"save",
+          contentType: "application/json",
+          data: msgData,
+          success: () => {
+            downloadMessages;
+            $("#message").val("");
+          }
+        });
+    }
+});
+
+$(window).bind("beforeunload", function (e) {
+    setTimeout(function(){
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: 'setnotactive',
+            contentType: "application/json",
+            data: JSON.stringify(chatOwner)
+        });
+    }, 0);
+});
+});
+</script>
+<h1 id="ownerTag" data-th-attr="data-owner-id=${chatOwner.id}, data-owner-name=${chatOwner.name}, data-owner-active=${chatOwner.active}"  >You are logged as <span th:text="${chatOwner.name}">Chat owner</span></h1>
+
+<div id="users"></div>
+<fieldset id="chat">
+    <div id="messages" style="font-family: monospace;"></div>
+    <label for="message">Message: </label><input id="message" type="text"/>
+    <button id="send">Send</button>
+</fieldset>
+</body>
+</html>

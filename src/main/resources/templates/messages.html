@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+
+<body>
+<div th:fragment="messagesList" th:unless="${#lists.isEmpty(messages)}" id="results-block">
+    <table id="msgTable" data-th-attr="data-chat-id=${chatId}">
+        <tbody>
+        <tr th:each="message : ${messages}">
+            <td th:text="${message.userId}">userId</td>
+            <td th:text="${message.date}">date</td>
+            <td th:text="${message.text}">text</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="google-signin-client_id"
+          content="299158705929-b7rstmc3fji5bfc2a2a2vcfk14lu27k0.apps.googleusercontent.com"/>
+    <title>Login to chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+</head>
+<body style="padding: 50px; vertical-align: middle">
+<script>
+function onSignIn(googleUser) {
+
+  var profile = googleUser.getBasicProfile();
+  var email = profile.getEmail();
+  var name = profile.getName();
+  window.location = "http://localhost:8181/chat?name="+name;
+  }
+
+function onLoad() {
+  gapi.load('auth2,signin2', function() {
+    var auth2 = gapi.auth2.init();
+    auth2.then(function() {
+      // Current values
+      var isSignedIn = auth2.isSignedIn.get();
+      var currentUser = auth2.currentUser.get();
+      <!--console.log("name "+name+" email "+email);-->
+      if (!isSignedIn) {
+        // Rendering g-signin2 button.
+        gapi.signin2.render('google-signin-button', {
+          'onsuccess': 'onSignIn'
+        });
+      } else {
+      var name = currentUser.getBasicProfile().getName();
+      window.location = "http://localhost:8181/chat?name="+name;
+      }
+    });
+  });
+}
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async="true" defer="true"></script>
+<div id="google-signin-button"></div>
+</body>
+</html>
