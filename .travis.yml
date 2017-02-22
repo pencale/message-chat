@@ -7,15 +7,13 @@ services:
 language: java
 jdk: oraclejdk8
 
-env:
-  global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-    - BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export NAME=alexpench/chat
-  - export TAG=latest
+  - echo "Test Success - Branch($TRAVIS_BRANCH) Pull Request($TRAVIS_PULL_REQUEST) Tag($TRAVIS_TAG)"
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then echo -e "Push Container to Docker Hub"; fi
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - echo "tag($TAG)"
   - docker build -t $NAME:$COMMIT .
   - docker tag $NAME:$COMMIT $NAME:$TAG
   - docker push $NAME
