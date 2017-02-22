@@ -11,6 +11,7 @@ env:
   global:
     - COMMIT=${TRAVIS_COMMIT::8}
 
+
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export NAME=alexpench/chat
