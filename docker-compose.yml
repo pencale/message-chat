@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=12345
+    restart: always
+  chat:
+    image: alexpench/chat:latest
+    restart: always
+    links:
+      - db
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:6000/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - SERVER_PORT=8181
