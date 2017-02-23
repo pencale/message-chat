@@ -6,6 +6,7 @@ CREATE SEQUENCE "message_seq" START 1;
 CREATE TABLE "message" (
     "id"    BIGINT PRIMARY KEY DEFAULT "nextval"('"message_seq"'),
     "user_id"   BIGINT NOT NULL,
+    "user_name" TEXT NOT NULL,
     "chat_id"   BIGINT NOT NULL,
     "text"  TEXT NOT NULL,
     "date"  TIMESTAMP NOT NULL

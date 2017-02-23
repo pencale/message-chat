@@ -38,6 +38,7 @@ public class ChatController {
         List<Message> messages = messageService.getMessagesForChat(chat);
         model.addAttribute("chatId", chat.getId());
         model.addAttribute("messages", messages);
+        model.addAttribute("from", ownerId);
         return "messages :: messagesList";
     }
 

@@ -21,6 +21,7 @@
 <script>
 jQuery(function($) {
 var chatPerson = null;
+var name = null;
 var lastChatPerson = null;
 var currentChatId;
 var isDownloading = false;
@@ -55,7 +56,7 @@ $('#users').empty()
  for (let i in data){
     ids.push(data[i].id)
     let userId = data[i].id
-    let name = data[i].name
+    name = data[i].name
     let className = "usersList"
     let dataToAppend = "<span class="+className+" id="+userId+">"+name+"</span><br />"
     $('#users').append(dataToAppend)
@@ -105,7 +106,8 @@ $('#send').click(function() {
     let msgText = $('#message').val();
     let msgData = JSON.stringify({
             text : msgText,
-            userId : chatPerson,
+            userId : chatOwner.id,
+            userName: chatOwner.name,
             date : new Date(),
             chatId : currentChatId
             })

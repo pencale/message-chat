@@ -18,18 +18,31 @@ public class Message {
 
     @Column(name = "user_id")
     private long userId = 0;
+    @Column(name = "user_name")
+    private String userName = "";
 
     @Column(name = "chat_id")
     private long chatId = 0;
     private String text = "";
     private Date date = new Date();
 
-    public Message() {}
-    public Message(long userId, long chatId, String text, Date date) {
+    public Message() {
+    }
+
+    public Message(long userId, String userName, long chatId, String text, Date date) {
         this.userId = userId;
+        this.userName = userName;
         this.chatId = chatId;
         this.text = text;
         this.date = date;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public long getId() {

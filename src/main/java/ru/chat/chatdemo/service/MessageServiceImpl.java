@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
         }
         if(chatMessages.isEmpty()){
             //if no messages found for chat, then create dummy, this is workaround to pass chatId to client
-            chatMessages.add(new Message(999L, chat.getId(), "--", new Date(System.currentTimeMillis()) ));
+            chatMessages.add(new Message(999L,"--", chat.getId(), "--", new Date(System.currentTimeMillis()) ));
         }
         return chatMessages;
     }

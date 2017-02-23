@@ -10,7 +10,7 @@
     <table id="msgTable" data-th-attr="data-chat-id=${chatId}">
         <tbody>
         <tr th:each="message : ${messages}">
-            <td th:text="${message.userId}">userId</td>
+            <td data-th-attr="data-chat-id=${chatId}" th:text="${message.userName}">userName</td>
             <td th:text="${message.date}">date</td>
             <td th:text="${message.text}">text</td>
         </tr>
