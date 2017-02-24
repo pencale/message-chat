@@ -29,14 +29,14 @@ You can expose it to another port changing the config file
       - "your_port:8181"
 ```
 ## Technologies were used
-* 'Java 8'
-* 'Spring Boot' 
-* 'Spring MVC'
-* 'Spring JPA' 
-* 'Thymeleaf templates' 
-* 'Postgres database'
-* 'Docker'
-* 'JavaScript'
-* 'jQuery'
-* 'HTML'
-* 'CSS'
+* `Java 8`
+* `Spring Boot`
+* `Spring MVC`
+* `Spring JPA` 
+* `Thymeleaf templates`
+* `Postgres database`
+* `Docker`
+* `JavaScript`
+* `jQuery`
+* `HTML`
+* `CSS`
