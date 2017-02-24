@@ -30,10 +30,10 @@ public class UserMapperServiceImpl implements UserMapperService {
                 return u;
             }
         }
-
-        User newUser = repo.save(new User(user.getName(), user.getEmail(), user.getAvatar()));
-        users.add(newUser);
-        return newUser;
+        user.setActive(true);
+        user = repo.save(user);
+        users.add(user);
+        return user;
     }
 
     @Override
@@ -57,9 +57,11 @@ public class UserMapperServiceImpl implements UserMapperService {
 
     @Override
     public void updateStatus(User user) {
-        users.remove(user);
-        user.setActive(false);
-        repo.save(user);
 
+        if (users.contains(user)){
+            users.remove(user);
+            user.setActive(false);
+            repo.save(user);
+        }
     }
 }

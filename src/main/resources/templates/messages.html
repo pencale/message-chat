@@ -6,15 +6,19 @@
 </head>
 
 <body>
-<div th:fragment="messagesList" th:unless="${#lists.isEmpty(messages)}" id="results-block">
+<div th:fragment="messagesList" th:unless="${#lists.isEmpty(messages)}" class="results-block">
     <table id="msgTable" data-th-attr="data-chat-id=${chatId}">
-        <tbody>
-        <tr th:each="message : ${messages}">
-            <td data-th-attr="data-chat-id=${chatId}" th:text="${message.userName}">userName</td>
-            <td th:text="${message.date}">date</td>
-            <td th:text="${message.text}">text</td>
-        </tr>
-        </tbody>
+        <div class="messageItem" th:each="message : ${messages}">
+            <div class="messageUser">
+                <i class="usersListIcon"></i>
+                <div class="userName" data-th-attr="data-chat-id=${chatId}" th:text="${message.userName}">User Name
+                </div>
+                <div class="messageDate" th:text="${message.date}">2017-02-22 02:13:59.42</div>
+            </div>
+            <div class="messageText" th:text="${message.text}" >
+                message text...
+            </div>
+        </div>
     </table>
 </div>
 </body>
