@@ -4,7 +4,7 @@
 
 ## How To Get Started
 
-- Copy docker-compose.yml to you server.
+- Copy docker-compose.yml to your server.
 - Run:
 ```bash
 sudo docker-compose up
@@ -28,3 +28,15 @@ You can expose it to another port changing the config file
     ports:
       - "your_port:8181"
 ```
+## Technologies were used
+* 'Java 8'
+* 'Spring Boot' 
+* 'Spring MVC'
+* 'Spring JPA' 
+* 'Thymeleaf templates' 
+* 'Postgres database'
+* 'Docker'
+* 'JavaScript'
+* 'jQuery'
+* 'HTML'
+* 'CSS'
