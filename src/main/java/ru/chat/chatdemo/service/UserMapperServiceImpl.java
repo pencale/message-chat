@@ -20,18 +20,18 @@ public class UserMapperServiceImpl implements UserMapperService {
     private UserRepository repo;
 
     @Override
-    public User add(String name) {
+    public User add(User user) {
         users = repo.findAll();
 
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                user.setActive(true);
-                repo.save(user);
-                return user;
+        for (User u : users) {
+            if (u.getName().equals(user.getName())) {
+                u.setActive(true);
+                repo.save(u);
+                return u;
             }
         }
 
-        User newUser = repo.save(new User(name));
+        User newUser = repo.save(new User(user.getName(), user.getEmail(), user.getAvatar()));
         users.add(newUser);
         return newUser;
     }

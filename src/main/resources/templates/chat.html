@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Chat</title>
@@ -15,6 +15,11 @@
             padding: 5px;
             border: 2px groove #f5f5f5;
         }
+        .avatar{
+            border-radius: 50%;
+            margin: 24px auto 12px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -22,6 +27,7 @@
 jQuery(function($) {
 var chatPerson = null;
 var name = null;
+var avatar = null;
 var lastChatPerson = null;
 var currentChatId;
 var isDownloading = false;
@@ -57,6 +63,7 @@ $('#users').empty()
     ids.push(data[i].id)
     let userId = data[i].id
     name = data[i].name
+    avatar = data[i].avatar
     let className = "usersList"
     let dataToAppend = "<span class="+className+" id="+userId+">"+name+"</span><br />"
     $('#users').append(dataToAppend)

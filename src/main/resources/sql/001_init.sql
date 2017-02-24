@@ -28,6 +28,8 @@ CREATE SEQUENCE "user_seq" START 1;
 CREATE TABLE "user" (
     "id"    BIGINT PRIMARY KEY DEFAULT "nextval"('"user_seq"'),
     "name"   TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "avatar" TEXT,
     "active"    BOOLEAN DEFAULT FALSE
 );
 
